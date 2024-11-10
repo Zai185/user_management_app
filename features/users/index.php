@@ -85,7 +85,7 @@ $users = users_all();
     $(document).ready(function() {
         $('.btn_user_delete').click(function() {
             if (confirm("Are you sure to delete this user?")) {
-                let base_url = "user_management"
+                let base_url = "<?= BASE_DIR;?>";
                 let user_id = $(this).data('user-id');
                 console.log(user_id)
                 $.ajax({

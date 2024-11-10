@@ -74,7 +74,7 @@ $roles = roles_all();
     $(document).ready(function() {
         $('.btn_role_delete').click(function() {
             if (confirm("Are you sure to delete this role?")) {
-                let base_url = "user_management"
+                let base_url = "<?= BASE_DIR;?>";
                 let role_id = $(this).data('role-id');
                 $.ajax({
                     method: 'post',
