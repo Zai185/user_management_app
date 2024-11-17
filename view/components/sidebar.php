@@ -1,5 +1,5 @@
 <?php
-require_login();
+// require_login();
 
 $features = user_features();
 $features = array_map(function ($f) {

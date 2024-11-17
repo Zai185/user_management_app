@@ -1,7 +1,6 @@
 <?php
-require '../../bootstrap.php';
-require_login();
-require_permission($_SESSION['email'], 'users', 'view', 'index.php');
+// require_login();
+// require_permission($_SESSION['email'], 'users', 'view', 'index.php');
 require ROOT_DIR . '/layouts/header.php';
 $users = users_all();
 ?>
