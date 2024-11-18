@@ -4,7 +4,7 @@ class DBConnection
 {
     public static $pdo;
     public static function run($connection)
-    {
+    {   
 
         if (!static::$pdo) {
 

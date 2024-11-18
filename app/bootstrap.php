@@ -9,6 +9,10 @@ require 'helper.php';
 require 'DBConnection.php';
 require 'QueryBuilder.php';
 require 'Route.php';
+require 'models/Model.php';
+require 'models/User.php';
+
+User::all('admin_users');
 
 
 $query = new QueryBuilder(DBConnection::run(require 'config/database.php'));
