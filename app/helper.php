@@ -1,6 +1,8 @@
 <?php
 
-function dd(...$var){
+function dd(...$var)
+{
+    echo "<pre>";
     var_dump(...$var);
     die();
 }
@@ -11,9 +13,9 @@ function dd(...$var){
  * @param mixed $data
  * @return void
  */
-function view($filepath, $data = [])
+function view($filepath, $data = []): array
 {
-    $filepath = str_replace('.', '/',$filepath);
+    $filepath = str_replace('.', '/', $filepath);
     return [$filepath, $data];
 }   
 // function redirect(string $path)

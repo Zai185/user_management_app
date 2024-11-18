@@ -1,4 +1,4 @@
 </body>
 
 </html>
-<?php session_flash_remove()?>
+<?php // session_flash_remove()?>

@@ -19,6 +19,10 @@ class UserController
 
     public function create()
     {
-        return ['users/create.php'];
+        return view('users.create');
+    }
+
+    public function edit() {
+        return view('users.edit');
     }
 }
