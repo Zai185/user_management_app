@@ -4,6 +4,18 @@ function dd(...$var){
     var_dump(...$var);
     die();
 }
+
+/**
+ * Give our the view file path
+ * @param mixed $filepath file are defie with "."
+ * @param mixed $data
+ * @return void
+ */
+function view($filepath, $data = [])
+{
+    $filepath = str_replace('.', '/',$filepath);
+    return [$filepath, $data];
+}   
 // function redirect(string $path)
 // {
 //     header("Location: /" . BASE_DIR . '/' . $path);

@@ -10,9 +10,11 @@ class Route
     public static $data = [];
 
 
-    static function get($uri, $filename, $data = [])
+    static function get($uri, $controller, $method)
     {
         $uri = trim($uri, '/');
+        $controller = new $controller();
+        [$filename, $data] = $controller->$method(); // return [view, data]
         self::$routes['GET'][$uri] =  $filename;
         self::$data[$uri] = $data;
     }
