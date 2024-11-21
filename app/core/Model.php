@@ -1,7 +1,14 @@
 <?php
 
-class Model{
-    public static function __callStatic($method, $args){
+class Model
+{
+
+    protected $table;
+    protected static $builder = QueryBuilder::class;
+    protected static $connection = DBConnection::class;
+
+    public static function __callStatic($method, $args)
+    {
         return (new static)->$method(...$args);
     }
 
@@ -13,11 +20,6 @@ class Model{
 
     public function query()
     {
-        return new QueryBuilder(DBConnection::run(require 'config/database.php')); 
+        return new static::$builder($this->table ?? static::class . 's');
     }
-
-    public function hello(){
-        echo "say hello";
-    }
-
 }

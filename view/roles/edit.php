@@ -1,41 +1,20 @@
-<?php
-require '../../bootstrap.php';
-require  ROOT_DIR . '/layouts/header.php';
-require_login();
-require_permission($_SESSION['email'], 'roles', 'edit', 'index.php');
-
-$permissions = features_permissions();
-$role_id = $_GET['id'];
-$allowed_roles = role_permissions_get($role_id);
-
-if(!$allowed_roles){
-    session_flash('error', "Invalid Role");
-    redirect('features/roles/index.php');
-}
-$results = [];
-foreach ($permissions as $p) {
-    $results[$p['feature_name']][] = $p;
-}
-
-?>
-
 <div>
     <div class="min-h-screen flex flex-auto flex-shrink-0 antialiased bg-white text-black ">
 
-        <?php require ROOT_DIR . '/components/sidebar.php' ?>
+        <?php require view_path('components/sidebar') ?>
 
-        <form id="roleForm" action="<?= '/' . BASE_DIR . '/func/roles/edit.php' ?>" method="post" class="py-2 px-4 flex-1">
-            <input type="hidden" name="role_id" value="<?= $role_id?>">
+        <form id="roleForm" action="<?= "/roles/update"; ?>" method="post" class="py-2 px-4 flex-1">
+            <input type="hidden" name="role_id" value="<?= $role['id'] ?>">
             <h2 class="text-2xl font-medium">Roles</h2>
             <div>
                 <p class="text-lg">Edit User Role</p>
-                <input type="text" placeholder="Role Name" name="role" class="border py-2 px-4" required value="<?= $allowed_roles['name'] ?>">
+                <input type="text" placeholder="Role Name" name="role" class="border py-2 px-4" required value="<?= $role['name'] ?>">
             </div>
 
-            <?php if (isset($flash['role_permission'])): ?>
-                <p class="text-xs text-red-700"><?= $flash['role_permission'] ?> </p>
+            <?php if (isset($flash['permissions'])): ?>
+                <p class="text-xs text-red-700"><?= $flash['permissions'] ?> </p>
             <?php endif ?>
-            <?php foreach ($results as $feature => $permissions) : ?>
+            <?php foreach ($feature_permissions as $feature => $permissions) : ?>
                 <div class="flex items-center my-2 bg-gray-100 py-1 px-2">
                     <h4 class="capitalize w-24"><?= $feature ?></h4>
 
@@ -56,12 +35,12 @@ foreach ($permissions as $p) {
                                 <input
                                     class="checkbox "
                                     type="checkbox"
-                                    name="role_permission[]"
+                                    name="permissions[]"
                                     data-feature="<?= $feature ?>"
                                     value="<?= $p['id'] ?>"
-                                    <?= in_array($p['id'], $allowed_roles['permissions']) ? "checked" : '' ?>>
+                                    <?= in_array($p['id'], $allowed_permissions) ? "checked" : '' ?>>
                                 <label class="capitalize">
-                                    <?= $p['name']  ?> 
+                                    <?= $p['name']  ?>
                                 </label>
                             </div>
                         <?php endforeach ?>

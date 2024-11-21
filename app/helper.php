@@ -17,13 +17,33 @@ function view($filepath, $data = []): array
 {
     $filepath = str_replace('.', '/', $filepath);
     return [$filepath, $data];
-}   
-// function redirect(string $path)
-// {
-//     header("Location: /" . BASE_DIR . '/' . $path);
-//     exit;
-// }
+}
 
+function redirect(string $uri)
+{
+    // return [null, $uri];
+    header("location: $uri");
+    exit;
+}
+
+function view_path($filename)
+{
+    return "view/$filename.php";
+}
+
+
+function verify_session_token($uid): bool
+{
+
+    $session = Session::where('user_id', $uid)->get();
+    dd($session);
+    return true;
+}
+
+function config($config_file)
+{
+    return require "config/$config_file.php";
+}
 // function require_login()
 // {
 //     if (!isset($_SESSION['email']) && !isset($_SESSION['uid'])) {
@@ -90,15 +110,7 @@ function view($filepath, $data = []): array
 //     $stmt->execute();
 // }
 
-// function verify_session_token($uid): bool
-// {
-//     $pdo = db();
-//     $sql = "SELECT access_token FROM `sessions` WHERE user_id = :user_id";
-//     $stmt = $pdo->prepare($sql);
-//     $stmt->bindParam(':user_id', $uid);
-//     $stmt->execute();
-//     return $stmt->fetch(PDO::FETCH_ASSOC) != null;
-// }
+
 
 // function delete_session_token($uid)
 // {
@@ -131,3 +143,11 @@ function view($filepath, $data = []): array
 // {
 //     unset($_SESSION['FLASH']);
 // }
+
+
+// & models
+
+function request()
+{
+    return new Request();
+}

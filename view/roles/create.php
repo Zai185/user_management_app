@@ -1,23 +1,18 @@
 <?php
-require '../../bootstrap.php';
-require  ROOT_DIR . '/layouts/header.php';
-require_login();
-require_permission($_SESSION['email'], 'roles', 'create', 'index.php');
+// require_login();
+// require_permission($_SESSION['email'], 'roles', 'create', 'index.php');
 
-$permissions = features_permissions();
 
-$results = [];
-foreach ($permissions as $p) {
-    $results[$p['feature_name']][] = $p;
-}
+
+
 ?>
 
 <div>
     <div class="min-h-screen flex flex-auto flex-shrink-0 antialiased bg-white text-black ">
 
-        <?php require ROOT_DIR . '/components/sidebar.php' ?>
+        <?php require view_path('/components/sidebar') ?>
 
-        <form id="roleForm" action="<?= '/' . BASE_DIR . '/func/roles/create.php' ?>" method="post" class="p-4 flex-1">
+        <form id="roleForm" action="/roles/store" method="post" class="p-4 flex-1">
             <h2 class="text-2xl font-medium">Roles</h2>
             <p class="text-lg">Create User Role</p>
             <div>
@@ -27,10 +22,10 @@ foreach ($permissions as $p) {
                 <?php endif ?>
             </div>
 
-            <?php if (isset($flash['role_permission'])): ?>
-                <p class="text-xs text-red-700"><?= $flash['role_permission'] ?> </p>
+            <?php if (isset($flash['permissions'])): ?>
+                <p class="text-xs text-red-700"><?= $flash['permissions'] ?> </p>
             <?php endif ?>
-            <?php foreach ($results as $feature => $permissions) : ?>
+            <?php foreach ($feature_permissions as $feature => $permissions) : ?>
                 <div class="flex items-center my-2 bg-gray-100 py-1 px-2">
                     <h4 class="capitalize w-24"><?= $feature ?></h4>
 
@@ -51,7 +46,7 @@ foreach ($permissions as $p) {
                                 <input
                                     class="checkbox "
                                     type="checkbox"
-                                    name="role_permission[]"
+                                    name="permissions[]"
                                     data-feature="<?= $feature ?>"
                                     value="<?= $p['id'] ?>">
                                 <label class="capitalize">
@@ -93,5 +88,3 @@ foreach ($permissions as $p) {
         })
     })
 </script>
-
-<?php require 'layouts/footer.php'; ?>

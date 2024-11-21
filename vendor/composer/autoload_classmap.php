@@ -6,17 +6,27 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Auth' => $baseDir . '/app/core/Auth.php',
     'AuthController' => $baseDir . '/app/controllers/AuthController.php',
+    'AuthMiddleware' => $baseDir . '/app/middlewares/AuthMiddleware.php',
     'ComposerAutoloaderInitd751713988987e9331980363e24189ce' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInitd751713988987e9331980363e24189ce' => $vendorDir . '/composer/autoload_static.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'DBConnection' => $baseDir . '/app/core/DBConnection.php',
+    'Feature' => $baseDir . '/app/models/Feature.php',
+    'GuestMiddleware' => $baseDir . '/app/middlewares/GuestMiddleware.php',
     'Model' => $baseDir . '/app/core/Model.php',
     'PageController' => $baseDir . '/app/controllers/PageController.php',
+    'Permission' => $baseDir . '/app/models/Permission.php',
     'QueryBuilder' => $baseDir . '/app/core/QueryBuilder.php',
+    'Request' => $baseDir . '/app/core/Request.php',
+    'Role' => $baseDir . '/app/models/Role.php',
+    'RoleController' => $baseDir . '/app/controllers/RoleController.php',
+    'RolePermission' => $baseDir . '/app/models/RolePermission.php',
     'Route' => $baseDir . '/app/core/Route.php',
     'Router' => $baseDir . '/app/core/Router.php',
+    'Session' => $baseDir . '/app/core/Session.php',
     'User' => $baseDir . '/app/models/User.php',
     'UserController' => $baseDir . '/app/controllers/UserController.php',
 );

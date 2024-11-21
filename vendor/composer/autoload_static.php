@@ -7,17 +7,27 @@ namespace Composer\Autoload;
 class ComposerStaticInitd751713988987e9331980363e24189ce
 {
     public static $classMap = array (
+        'Auth' => __DIR__ . '/../..' . '/app/core/Auth.php',
         'AuthController' => __DIR__ . '/../..' . '/app/controllers/AuthController.php',
+        'AuthMiddleware' => __DIR__ . '/../..' . '/app/middlewares/AuthMiddleware.php',
         'ComposerAutoloaderInitd751713988987e9331980363e24189ce' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInitd751713988987e9331980363e24189ce' => __DIR__ . '/..' . '/composer/autoload_static.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'DBConnection' => __DIR__ . '/../..' . '/app/core/DBConnection.php',
+        'Feature' => __DIR__ . '/../..' . '/app/models/Feature.php',
+        'GuestMiddleware' => __DIR__ . '/../..' . '/app/middlewares/GuestMiddleware.php',
         'Model' => __DIR__ . '/../..' . '/app/core/Model.php',
         'PageController' => __DIR__ . '/../..' . '/app/controllers/PageController.php',
+        'Permission' => __DIR__ . '/../..' . '/app/models/Permission.php',
         'QueryBuilder' => __DIR__ . '/../..' . '/app/core/QueryBuilder.php',
+        'Request' => __DIR__ . '/../..' . '/app/core/Request.php',
+        'Role' => __DIR__ . '/../..' . '/app/models/Role.php',
+        'RoleController' => __DIR__ . '/../..' . '/app/controllers/RoleController.php',
+        'RolePermission' => __DIR__ . '/../..' . '/app/models/RolePermission.php',
         'Route' => __DIR__ . '/../..' . '/app/core/Route.php',
         'Router' => __DIR__ . '/../..' . '/app/core/Router.php',
+        'Session' => __DIR__ . '/../..' . '/app/core/Session.php',
         'User' => __DIR__ . '/../..' . '/app/models/User.php',
         'UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
     );

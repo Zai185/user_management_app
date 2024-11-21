@@ -31,8 +31,8 @@ function role_permissions_get($role_id)
     $pdo = db();
 
     $sql = "SELECT roles.name, GROUP_CONCAT(permission_id) AS permissions FROM roles 
-    JOIN role_permissions ON roles.id = role_permissions.role_id
     WHERE roles.id=:id";
+    JOIN role_permissions ON roles.id = role_permissions.role_id
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(":id",  $role_id);

@@ -1,1 +1,1 @@
-dahsboard
+dashboard
