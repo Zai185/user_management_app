@@ -1,11 +1,10 @@
 <?php
 
-class RequirePermission extends Middleware{
+class RequirePermission extends Middleware
+{
 
-    public function run(){
-        
+    public function run($feautre, $permission) {
+
+        User::hasPermission($feautre, $permission);
     }
-
-
-
 }

@@ -10,12 +10,20 @@ class AuthController
     public function login()
     {
         $data = request()->data;
+        require_data('email');
+        require_data('password');
+
         if (!Auth::attempt($data['email'], $data['password'])) {
-            dd("Not here");
+            redirect('/auth/login');
         };
 
-        Session::regenrate();
-
         redirect('/');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::destroy();
+        redirect('/auth/login');
     }
 }

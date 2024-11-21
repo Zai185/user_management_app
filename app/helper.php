@@ -44,6 +44,16 @@ function config($config_file)
 {
     return require "config/$config_file.php";
 }
+
+function require_data($key)
+{
+    // data comes with ['key' => 'value'...]
+    if (!isset(request()->data[$key])) {
+        Session::flash('error', "$key is required");
+        dd($key,"not here");
+        
+    }
+}
 // function require_login()
 // {
 //     if (!isset($_SESSION['email']) && !isset($_SESSION['uid'])) {

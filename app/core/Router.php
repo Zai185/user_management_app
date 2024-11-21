@@ -33,19 +33,22 @@ class Router
         require view_path('layouts/appLayout');
     }
 
-    public function middlewareCheck($middlewares)
+    public function middlewareCheck(...$middlewares)
     {
-        switch (gettype($middlewares)) {
-            case "string":
-                $middlewares = new $middlewares();
-                $middlewares->run();
-                break;
-            case "Array":
-                foreach ($middlewares as $middleware) {
-                    $middleware = new $middleware();
-                    $middleware->run();
-                }
-                break;
+
+        foreach ($middlewares as $mw) {
+            [$mw, $dataSet] = array_pad(explode(':', $mw), 2, null);
+            $middlewareAlias = config('middleware');
+            $middleware = in_array($mw, array_keys($middlewareAlias))
+            ? new $middlewareAlias[$mw]()
+            : new $mw();
+            
+            $data = [];
+            if ($dataSet) {
+                $data = explode(',', $dataSet);
+            }
+            
+            $middleware->run(...$data);
         }
     }
 

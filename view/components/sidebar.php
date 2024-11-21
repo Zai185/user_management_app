@@ -58,7 +58,9 @@ $features = Feature::all();
                 </li>
             <?php  endforeach ?>
         </ul>
-        <a class="w-full py-2 text-center bg-gray-700 hover:bg-gray-800" href="/auth/logout" >Logout</a>
+        <form action="/auth/logout" method="post">    
+            <button class="w-full py-2 text-center bg-gray-700 hover:bg-gray-800" >Logout</button>
+        </form>
     </div>
 </div>
 
@@ -68,5 +70,7 @@ $features = Feature::all();
             var accordion = $(this).siblings('.accordion')
             accordion.toggleClass('max-h-0')
         })
+
+        
     })
 </script>

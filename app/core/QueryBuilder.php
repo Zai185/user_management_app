@@ -7,7 +7,7 @@ class QueryBuilder
     public $query;
     public $table;
     public $select;
-    private $hasWhere = false;
+    private $hasWhere = 0;
     public function __construct($table)
     {
 
@@ -36,13 +36,14 @@ class QueryBuilder
 
     public function where($column, $value): static
     {
-        if (!$this->hasWhere) {
+        if ($this->hasWhere <= 0) {
             $this->query .= " where";
-            $this->hasWhere = true;
+            $this->hasWhere++;
         } else {
-            $this->query = " and ";
+            $this->query .= " and ";
         }
-        $this->query .= " $this->table.$column = '$value'";
+        $table = $this->select ? '' : "$this->table.";
+        $this->query .= " $table$column = '$value'";
         return $this;
     }
 

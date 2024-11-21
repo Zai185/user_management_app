@@ -1,9 +1,7 @@
 <?php
 
-abstract class Middleware{
-    abstract function run();
+abstract class Middleware
+{
 
-    public function next(){
-        
-    }
+    public function next() {}
 }
