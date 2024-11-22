@@ -22,3 +22,6 @@ Route::post('/roles/store', RoleController::class, 'store')->middleware('auth', 
 Route::get('/roles/edit', RoleController::class, 'edit')->middleware('auth', 'require_permission:roles,edit');
 Route::post('/roles/update', RoleController::class, 'update')->middleware('auth', 'require_permission:roles,edit');
 Route::post('/roles/delete', RoleController::class, 'delete')->middleware('auth', 'require_permission:roles,delete');
+
+Route::get('/products', ProductController::class, 'index')->middleware('auth','require_permission:products,view');
+Route::get('/products/create', ProductController::class, 'create')->middleware('auth','require_permission:products,create');

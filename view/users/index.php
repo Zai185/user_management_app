@@ -1,12 +1,10 @@
-
-
 <div class="min-h-screen flex flex-auto flex-shrink-0 antialiased bg-white text-black ">
 
     <?php require view_path('components/sidebar') ?>
 
-    
+
     <div
-        class="relative flex flex-col w-full h-full overflow-y-auto text-gray-700 bg-white shadow-md rounded-xl bg-clip-border p-4">
+        class="relative flex flex-col w-full h-screen overflow-y-auto text-gray-700 bg-white shadow-md rounded-xl bg-clip-border p-4">
         <h2 class="text-2xl font-medium">Users</h2>
         <p class="text-lg">User List</p>
 
@@ -56,19 +54,18 @@
                                 </p>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50 w-48">
-                                <?php // if (require_permission($_SESSION['email'], 'users', 'edit')): 
-                                ?>
-                                <a href="<?= "/users/edit?id={$user['id']}"?>" class="inline-block mx-2 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                    Edit
-                                </a>
-                                <?php //endif 
-                                ?>
-                                <?php //if (require_permission($_SESSION['email'], 'users', 'delete')): 
-                                ?>
-                                <button data-user-id="<?= $user['id'] ?>" class="btn_user_delete inline-block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                    Delete
-                                </button>
-                                <?php //endif 
+                                <?php if (User::hasPermission('users', 'edit')): ?>
+
+                                    <a href="<?= "/users/edit?id={$user['id']}" ?>" class="inline-block mx-2 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                        Edit
+                                    </a>
+                                <?php endif ?>
+                                <?php if (User::hasPermission('users', 'delete')): ?>
+
+                                    <button data-user-id="<?= $user['id'] ?>" class="btn_user_delete inline-block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                        Delete
+                                    </button>
+                                <?php endif
                                 ?>
                             </td>
                         </tr>
@@ -95,15 +92,15 @@
                         </svg>
                     </div>
                     <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                        <h3 class="text-base font-semibold text-gray-900" id="modal-title">Deactivate account</h3>
+                        <h3 class="text-base font-semibold text-gray-900" id="modal-title">Delete account</h3>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500">Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.</p>
+                            <p class="text-sm text-gray-500">Are you sure you want to Delete your account? All of your data will be permanently removed. This action cannot be undone.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
+                <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</button>
                 <button type="button" class="closeDialogue mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
             </div>
         </div>
@@ -125,7 +122,5 @@
             $('.closeDialogue').addClass('opacity-0 pointer-events-none')
             $('#user_id').val('')
         })
-
-
     })
 </script>

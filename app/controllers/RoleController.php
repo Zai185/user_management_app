@@ -34,8 +34,10 @@ class RoleController
     public function store()
     {
 
-
-        $data = request()->data;
+        $data = request()->validate([
+            'role' => 'required',
+            'permissions' => 'required'
+        ]);
         $role = Role::create([
             'name' => $data['role']
         ]);
@@ -54,6 +56,11 @@ class RoleController
 
         $role_id = request()->data['id'];
         $role = Role::find($role_id);
+        if(!$role){
+          redirect('/roles');
+          Session::flash('error', 'Role not found');
+          return;
+        }
         $role_permissions = RolePermission::where('role_id', $role_id)->get();
         $allowed_permissions = array_map(function ($r) {
             return $r['permission_id'];
@@ -79,7 +86,11 @@ class RoleController
     public function update()
     {
 
-        $data = request()->data;
+        $data = request()->validate([
+            'role_id' => 'required',
+            'role' => 'required',
+            'permissions' => 'required'
+        ]);
         $role_id = $data['role_id'];
         $role = Role::find($role_id);
         $role['name'] = $data['role'];

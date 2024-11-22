@@ -8,12 +8,15 @@ class User extends Model
 
     public static function hasPermission($feature, $permission)
     {
-        $user_role_id = Auth::user();
+        $user_role_id = Auth::user()['role_id'];
         $permission = Permission::join('features', 'feature_id', 'id')
-            ->select('features.name as feature_name', 'permissions.name as permission_name')
+            ->select('permissions.id')
             ->where('features.name', $feature)
             ->where('permissions.name', $permission)
-            ->get();
-        return count($permission) > 0;
+            ->first();
+        $allowed_permission = RolePermission::where('permission_id', $permission['id'])
+            ->where('role_id', $user_role_id)
+            ->first();
+        return $allowed_permission;
     }
 }

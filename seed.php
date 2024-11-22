@@ -1,14 +1,24 @@
 <?php
-require 'database.php';
+
+require 'app/bootstrap.php';
 
 function have_records($table)
 {
-    $pdo = db();
-    $sql_users = "SELECT * FROM $table";
-    $stmt_users = $pdo->prepare($sql_users);
-    $stmt_users->execute();
-    return $stmt_users->fetchAll(PDO::FETCH_ASSOC);
+    $table_classes = [
+        'admin_users' => 'User',
+        'roles' => 'Role',
+        'permissions' => 'Permission',
+        'role_permissions' => 'RolePermission',
+        'features' => 'Feature',
+        'sessions' => 'Sessions'
+    ];
+
+    $class = $table_classes[$table];
+    return $class::all();
+
 }
+
+$pdo = DBConnection::run(config('database'));
 
 try {
 
@@ -63,16 +73,16 @@ try {
 
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS `sessions` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `user_id` int(11) NOT NULL,
-            `access_token` varchar(128) DEFAULT NULL,
+            `id` VARCHAR(32) NOT NULL,
+            `user_id` int(11) NULL,
+            `expired_at` DATETIME NOT NULL,
             PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
     ");
 
-    
+
     if (!have_records('admin_users')) {
-        $password = password_hash('admin',PASSWORD_DEFAULT);
+        $password = password_hash('admin', PASSWORD_DEFAULT);
         $sql = "
 INSERT INTO `admin_users` (`id`, `name`, `username`, `role_id`, `phone`, `email`, `address`, password, `gender`, `is_active`) 
 VALUES 

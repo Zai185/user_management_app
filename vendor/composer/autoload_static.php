@@ -21,6 +21,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'Model' => __DIR__ . '/../..' . '/app/core/Model.php',
         'PageController' => __DIR__ . '/../..' . '/app/controllers/PageController.php',
         'Permission' => __DIR__ . '/../..' . '/app/models/Permission.php',
+        'ProductController' => __DIR__ . '/../..' . '/app/controllers/ProductController.php',
         'QueryBuilder' => __DIR__ . '/../..' . '/app/core/QueryBuilder.php',
         'Request' => __DIR__ . '/../..' . '/app/core/Request.php',
         'RequirePermission' => __DIR__ . '/../..' . '/app/middlewares/RequirePermission.php',

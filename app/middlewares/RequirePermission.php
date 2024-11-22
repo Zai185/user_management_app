@@ -1,10 +1,14 @@
 <?php
 
-class RequirePermission extends Middleware
+class RequirePermission
 {
 
-    public function run($feautre, $permission) {
-
-        User::hasPermission($feautre, $permission);
+    public function run($feature, $permission)
+    {
+        if (!User::hasPermission($feature, $permission)) {
+            Session::getProps('prev_url')
+                ? back()
+                : redirect('/');
+        }
     }
 }

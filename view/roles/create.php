@@ -44,7 +44,7 @@
                             <div class=" flex items-center gap-1">
 
                                 <input
-                                    class="checkbox "
+                                    class="checkbox <?= $p['name'] ?>"
                                     type="checkbox"
                                     name="permissions[]"
                                     data-feature="<?= $feature ?>"
@@ -85,6 +85,24 @@
                 }
             }
             btn_all.prop('checked', true)
+        })
+
+        $('.edit').click(function() {
+            let feature = $(this).data('feature');
+            let view_check = $(`.view[data-feature = ${feature}]`)
+            view_check.prop('checked', true);
+        })
+        $('.delete').click(function() {
+            let feature = $(this).data('feature');
+            let view_check = $(`.view[data-feature = ${feature}]`)
+            view_check.prop('checked', true);
+        })
+        $('.view').click(function() {
+            let feature = $(this).data('feature');
+            let edit_check = $(`.edit[data-feature = ${feature}]`)
+            let delete_check = $(`.delete[data-feature = ${feature}]`)
+            edit_check.prop('checked', false);
+            delete_check.prop('checked', false);
         })
     })
 </script>

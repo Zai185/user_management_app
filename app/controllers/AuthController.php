@@ -9,11 +9,13 @@ class AuthController
 
     public function login()
     {
-        $data = request()->data;
-        require_data('email');
-        require_data('password');
-
+        $data = request()->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
         if (!Auth::attempt($data['email'], $data['password'])) {
+            Session::flash('error', "Invalid Credential");
+            Session::flash('email', "Invalid Credential");
             redirect('/auth/login');
         };
 

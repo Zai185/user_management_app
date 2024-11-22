@@ -17,10 +17,17 @@ class Auth
     public static function checkToken()
     {
         $prev_session_id = $_COOKIE['php_hash_token'];
+        $today = new DateTime(); // Current time
+        $today = $today->format('Y-m-d H:i:s');
         if ($session = Session::find($prev_session_id)) {
-            $user = User::find($session['user_id']);
-            Session::setProps('user_id', $user['id']);
-            Session::setProps('email', $user['email']);
+            if (date($session['expired_at'])  < date($today)) {
+                Session::delete($session['id']);
+                Session::clearProps();
+            } else {
+                $user = User::find($session['user_id']);
+                Session::setProps('user_id', $user['id']);
+                Session::setProps('email', $user['email']);
+            }
         }
     }
 
@@ -32,10 +39,13 @@ class Auth
             Session::setProps('user_id', $user['id']);
             Session::setProps('email', $user['email']);
             Session::delete($user['id'], 'user_id');
-            print_r(Session::getId());
+            $date = new DateTime();
+            $date = $date->modify('+3 days')
+                ->format('Y-m-d H:i:s');
             $session = Session::create([
                 'id' => Session::getId(),
-                'user_id' => $user['id']
+                'user_id' => $user['id'],
+                'expired_at' => $date
             ]);
 
             setcookie('php_hash_token',  Session::getId(), time() + 60 * 60 * 24 * 7, "/");
@@ -54,9 +64,13 @@ class Auth
             Session::delete($user_id, 'user_id');
         }
         $user = User::find($user_id);
+        $date = new DateTime();
+        $date = $date->modify('+3 days')
+            ->format('Y-m-d H:i:s');
         Session::create([
             'id' => Session::getId(),
-            'user_id' => $user['id']
+            'user_id' => $user['id'],
+            'expired_at' => $date
         ]);
         Session::setProps('user_id', $user['id']);
         Session::setProps('email', $user['email']);

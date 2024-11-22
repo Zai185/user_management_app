@@ -20,6 +20,7 @@ return array(
     'Model' => $baseDir . '/app/core/Model.php',
     'PageController' => $baseDir . '/app/controllers/PageController.php',
     'Permission' => $baseDir . '/app/models/Permission.php',
+    'ProductController' => $baseDir . '/app/controllers/ProductController.php',
     'QueryBuilder' => $baseDir . '/app/core/QueryBuilder.php',
     'Request' => $baseDir . '/app/core/Request.php',
     'RequirePermission' => $baseDir . '/app/middlewares/RequirePermission.php',

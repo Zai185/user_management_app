@@ -2,7 +2,7 @@
 
 class DBConnection
 {
-    public static $pdo;
+    public static  $pdo;
     public static function run($connection)
     {   
 

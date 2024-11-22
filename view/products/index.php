@@ -1,14 +1,6 @@
-<?php
-require '../../bootstrap.php';
-require_login();
-require_permission($_SESSION['email'], 'products', 'view', 'index.php');
-require ROOT_DIR . '/layouts/header.php';
-
-?>
-
 <div class="min-h-screen flex flex-auto flex-shrink-0 antialiased bg-white text-black ">
 
-    <?php require ROOT_DIR . '/components/sidebar.php' ?>
+    <?php require view_path('components/sidebar') ?>
 
     <div
         class="p-4 relative flex flex-col w-full h-full overflow-y-auto text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
@@ -55,12 +47,14 @@ require ROOT_DIR . '/layouts/header.php';
                         </p>
                     </td>
                     <td class="p-4 border-b border-blue-gray-50 w-48">
-                        <?php if (require_permission($_SESSION['email'], 'products', 'edit')): ?>
+                        <?php if (User::hasPermission('products', 'edit')): ?>
+
                             <a href="#" class="inline-block mx-2 font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                 Edit
                             </a>
                         <?php endif ?>
-                        <?php if (require_permission($_SESSION['email'], 'products', 'delete')): ?>
+                        <?php if (User::hasPermission('products', 'delete')): ?>
+
                             <button class="btn_role_delete inline-block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                 Delete
                             </button>

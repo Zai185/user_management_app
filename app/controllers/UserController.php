@@ -30,18 +30,19 @@ class UserController
 
     public function store()
     {
-        $data = request()->data;
-        User::create([
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            'address' => $data['address'],
-            'role_id' => $data['role_id'],
-            'phone' => $data['phone'],
-            'gender' => $data['gender'],
-            'is_active' => $data['is_active'] ?? false
+        $data = request()->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required',
+            'address' => 'required',
+            'role_id' => 'required',
+            'phone' => 'required',
+            'gender' => 'required'
         ]);
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['is_active'] ??= false;
+        User::create($data);
         redirect('/users');
     }
 
@@ -63,21 +64,23 @@ class UserController
 
     public function update()
     {
-        $data = request()->data;
-        $user = User::find($data['id']);
-
-        User::update([
-            'id' => $data['id'],
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            'address' => $data['address'],
-            'role_id' => $data['role_id'],
-            'phone' => $data['phone'],
-            'gender' => $data['gender'],
-            'is_active' => $data['is_active'] ?? false
+        $data = request()->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'username' => 'required',
+            'address' => 'required',
+            'role_id' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
         ]);
+
+        if (request()->data['password']) {
+            $data['password'] = password_hash(request()->data['password'], PASSWORD_DEFAULT);
+        }
+
+        $data['is_active'] = isset($data['is_active']) ?? false;
+
+        User::update($data);
 
         redirect("/users");
     }

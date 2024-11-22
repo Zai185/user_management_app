@@ -1,11 +1,3 @@
-<?php
-// require_login();
-// require_permission($_SESSION['email'], 'users', 'edit', 'index.php');
-
-
-
-?>
-
 <div>
     <div class="min-h-screen flex flex-auto flex-shrink-0 antialiased bg-white text-black ">
 
@@ -53,7 +45,7 @@
                             <legend>Account Information</legend>
                             <div>
                                 <label class="text-sm font-medium block">Email:</label>
-                                <input type="email" placeholder="user@example.com" value="<?= $user['email'] ?>" name="email" class="w-full border py-2 px-4" required>
+                                <input type="email" placeholder="user@example.com" value="<?= $user['email'] ?>" name="email" class="w-full border py-2 px-4" disabled required>
                                 <?php if (isset($flash['email'])): ?>
                                     <p class="text-xs text-red-700"><?= $flash['email'] ?> </p>
                                 <?php endif ?>

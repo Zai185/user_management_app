@@ -13,6 +13,8 @@ class Session extends Model
     {
         static::$id = $id;
     }
+
+
     private static function resetId()
     {
 
@@ -23,10 +25,9 @@ class Session extends Model
     {
         session_start();
         static::resetId();
-
     }
 
-    
+
 
     public static function destroy()
     {
@@ -49,7 +50,7 @@ class Session extends Model
             'user_id' => Session::getProps('user_id'),
             'expired_at' => $date
         ]);
-        setcookie('php_hash_token',  static::getId(), time() +60*60*24*7, "/");
+        setcookie('php_hash_token',  static::getId(), time() + 60 * 60 * 24 * 7, "/");
     }
 
     public static function getProps($key)
@@ -60,12 +61,18 @@ class Session extends Model
     {
         $_SESSION[$key] = $value;
     }
+    public static function clearProps()
+    {
+        unset($_SESSION);
+    }
 
-    public static function flash($key, $message){
+    public static function flash($key, $message)
+    {
         $_SESSION['FLASH'][$key] = $message;
     }
 
-    public static function clearFlash(){
+    public static function clearFlash()
+    {
         unset($_SESSION['FLASH']);
     }
 }
